@@ -1,0 +1,90 @@
+{
+	"version": 3,
+	"cmakeMinimumRequired": {
+		"major": 3,
+		"minor": 2,
+		"patch": 0
+	},
+	"configurePresets": [
+		{
+			"name": "base",
+			"hidden": true,
+			"generator": "Ninja Multi-Config",
+			"binaryDir": "${sourceDir}/build/${presetName}",
+			"cacheVariables": {
+				"CMAKE_CXX_STANDARD": "17",
+				"CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+			}
+		}, {
+			"name": "macos",
+			"displayName": "macOS",
+			"description": "Configure on macOS. The project CMake file auto-detects Homebrew glfw.",
+			"inherits": "base",
+			"condition": {
+				"type": "equals",
+				"lhs": "${hostSystemName}",
+				"rhs": "Darwin"
+			}
+		}, {
+			"name": "linux",
+			"displayName": "Linux",
+			"description": "Configure on Linux with system-installed glfw and OpenGL.",
+			"inherits": "base",
+			"condition": {
+				"type": "equals",
+				"lhs": "${hostSystemName}",
+				"rhs": "Linux"
+			}
+		}, {
+			"name": "windows",
+			"displayName": "Windows",
+			"description": "Configure on Windows with vcpkg. Set VCPKG_ROOT to your vcpkg installation directory.",
+			"inherits": "base",
+			"cacheVariables": {
+				"CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+				"VCPKG_TARGET_TRIPLET": "x64-windows"
+			},
+			"condition": {
+				"type": "equals",
+				"lhs": "${hostSystemName}",
+				"rhs": "Windows"
+			}
+		}
+	],
+	"buildPresets": [
+		{
+			"name": "macos-debug",
+			"displayName": "macOS Debug",
+			"configurePreset": "macos",
+			"configuration": "Debug"
+		},
+		{
+			"name": "macos-release",
+			"displayName": "macOS Release",
+			"configurePreset": "macos",
+			"configuration": "Release"
+		},
+		{
+			"name": "linux-debug",
+			"displayName": "Linux Debug",
+			"configurePreset": "linux",
+			"configuration": "Debug"
+		},
+		{
+			"name": "linux-release",
+			"displayName": "Linux Release",
+			"configurePreset": "linux",
+			"configuration": "Release"
+		}, {
+			"name": "windows-debug",
+			"displayName": "Windows Debug",
+			"configurePreset": "windows",
+			"configuration": "Debug"
+		}, {
+			"name": "windows-release",
+			"displayName": "Windows Release",
+			"configurePreset": "windows",
+			"configuration": "Release"
+		}
+	]
+}
