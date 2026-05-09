@@ -27,7 +27,7 @@ inline void debugBreak()
 #elif defined(__clang__)
     __builtin_debugtrap();
 #elif defined(__GNUC__)
-    raise(SIGTRAP);
+    __builtin_trap();
 #else
     std::abort();
 #endif
