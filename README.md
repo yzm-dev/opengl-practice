@@ -12,7 +12,8 @@
 | glm | OpenGL 数学库 |
 | assimp | 模型文件加载库 |
 | FreeType | 字体加载与文本渲染库 |
-| glad | OpenGL 4.1 Core 函数加载器（已内置于 `external/libs/glad/`） |
+| glad | OpenGL 4.1 Core 函数加载器（已内置于 `third_party/glad/`） |
+| stb_image | 图片加载单头文件库（已内置于 `third_party/stb/`） |
 
 macOS 使用 Homebrew 安装：
 
@@ -32,6 +33,8 @@ Windows 使用 [vcpkg](https://vcpkg.io) 安装依赖：
 $env:VCPKG_ROOT="C:\path\to\vcpkg"
 vcpkg install glfw3:x64-windows glm:x64-windows assimp:x64-windows freetype:x64-windows
 ```
+
+`stb_image` 已作为项目内置头文件使用，不需要通过 Homebrew、apt 或 vcpkg 安装。
 
 `windows` preset 会通过 `VCPKG_ROOT` 自动设置 vcpkg toolchain：
 
@@ -125,12 +128,14 @@ Windows：
 ```
 OpenGL-Practice/
 ├── CMakeLists.txt              # 根配置
-├── external/
-│   └── libs/
-│       └── glad/               # OpenGL 4.1 Core 加载器（静态库）
-│           ├── include/
-│           └── src/
-├── 1.DrawTriangle/             # 1.渲染橙色三角形
+├── third_party/
+│   ├── glad/                   # OpenGL 4.1 Core 加载器（静态库）
+│   │   ├── include/
+│   │   └── src/
+│   └── stb/                    # stb_image.h
+├── utils/                      # OpenGL 常用代码封装
+├── examples/                   # 示例项目
+├── 1.draw_triangle/            # 1.渲染彩色三角形
 │   ├── src/main.cpp
 │   └── shaders/
 │       ├── triangle.vert
@@ -153,4 +158,4 @@ OpenGL-Practice/
 
 CMake 会自动将该课程的 `shaders/` 绝对路径注入为 `SHADER_DIR` 宏，供代码中直接用。
 
-根 `CMakeLists.txt` 会为每个 `add_opengl_executable(...)` 目标统一链接 `glfw`、`glm`、`assimp`、`Freetype` 和内置的 `glad`。
+根 `CMakeLists.txt` 会为每个 `add_opengl_executable(...)` 目标统一链接 `gl_renderer_utils`。该 utils 库会继续传递 `glfw`、`glm`、`assimp`、`Freetype`、内置 `glad` 和内置 `stb_image` 的 include 路径。

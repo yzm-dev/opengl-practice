@@ -30,19 +30,13 @@ find_package(glm CONFIG REQUIRED)
 find_package(assimp CONFIG REQUIRED)
 find_package(Freetype REQUIRED)
 
-add_subdirectory(external/libs/glad)
+add_subdirectory(third_party/glad)
+add_subdirectory(utils)
 
 function(add_opengl_executable TARGET_NAME)
     add_executable(${TARGET_NAME} ${ARGN})
-    target_include_directories(${TARGET_NAME} PRIVATE
-        "${CMAKE_SOURCE_DIR}/include"
-    )
     target_link_libraries(${TARGET_NAME} PRIVATE
-        glad
-        glfw
-        glm::glm
-        assimp::assimp
-        Freetype::Freetype
+        gl_renderer_utils
     )
 
     if(APPLE)
@@ -58,4 +52,5 @@ function(add_opengl_executable TARGET_NAME)
     )
 endfunction()
 
+add_subdirectory(examples)
 add_subdirectory(1.draw_triangle)
