@@ -133,29 +133,27 @@ OpenGL-Practice/
 │   │   ├── include/
 │   │   └── src/
 │   └── stb/                    # stb_image.h
+│   │   ├── stb_image.h
+│   │   ├── stb_image.cpp
 ├── utils/                      # OpenGL 常用代码封装
 ├── examples/                   # 示例项目
+├── resources/                  # 项目可用的资源文件
 ├── 1.draw_triangle/            # 1.渲染彩色三角形
-│   ├── src/main.cpp
-│   └── shaders/
-│       ├── triangle.vert
-│       └── triangle.frag
+│   ├── 1.draw_triangle.cpp
+│   ├── triangle.vert
+│   ├── triangle.frag
 └── 2.xxxxxx
 ```
 
 ## 新增子项目
 
 1. 创建新子目录，如 `2.Textures`
-2. 在其中新建 `src/main.cpp` 和 `shaders` 目录
-3. 在子项目根目录添加 `CMakeLists.txt`，配置内容：
+2. 在其中新建 `main.cpp` 和 `shader`
+3. 在项目项目根目录的 `CMakeLists.txt`，配置内容：
    ```cmake
-   add_opengl_executable(Textures src/main.cpp)
-   ```
-4. 在项目根目录 `CMakeLists.txt` 末尾追加：
-   ```cmake
-   add_subdirectory(2.Textures)
+   add_opengl_executable(Textures main.cpp)
    ```
 
-CMake 会自动将该课程的 `shaders/` 绝对路径注入为 `SHADER_DIR` 宏，供代码中直接用。
+关于 `SHADER_DIR` 和 `TEXTURE_DIR` 宏，在`CMakeLists.txt` 中`add_opengl_executable` 统一配置，供代码中直接用。
 
-根 `CMakeLists.txt` 会为每个 `add_opengl_executable(...)` 目标统一链接 `gl_renderer_utils`。该 utils 库会继续传递 `glfw`、`glm`、`assimp`、`Freetype`、内置 `glad` 和内置 `stb_image` 的 include 路径。
+ `CMakeLists.txt` 会为每个 `add_opengl_executable(...)` 目标统一链接 `gl_renderer_utils`，`stb`。该 utils 库会继续传递 `glfw`、`glm`、`assimp`、`Freetype`、和内置的 `glad` 库。
