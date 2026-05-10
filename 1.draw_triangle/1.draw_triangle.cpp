@@ -122,7 +122,7 @@ int main()
     }
     std::cout << "OpenGL " << glGetString(GL_VERSION) << '\n';
 
-    // SHADER_DIR 在 CMake 里统一配置，指向当前项目 shaders/ 目录
+    // SHADER_DIR 在 CMake 里统一配置，由 target_compile_definitions 传入
     std::string vert_src = readFile2String(SHADER_DIR "triangle.vert");
     std::string frag_src = readFile2String(SHADER_DIR "triangle.frag");
     if (vert_src.empty() || frag_src.empty())
