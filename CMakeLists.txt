@@ -30,6 +30,7 @@ find_package(glm CONFIG REQUIRED)
 find_package(assimp CONFIG REQUIRED)
 find_package(Freetype REQUIRED)
 
+add_subdirectory(third_party/stb)
 add_subdirectory(third_party/glad)
 add_subdirectory(utils)
 
@@ -37,6 +38,7 @@ function(add_opengl_executable TARGET_NAME)
     add_executable(${TARGET_NAME} ${ARGN})
     target_link_libraries(${TARGET_NAME} PRIVATE
         gl_renderer_utils
+        stb
     )
 
     if(APPLE)
@@ -45,12 +47,13 @@ function(add_opengl_executable TARGET_NAME)
         target_link_libraries(${TARGET_NAME} PRIVATE GL)
     endif()
 
-    # 将子项目下的 shaders/ 路径注入为编译期宏，运行时从文件加载 shader
+    # 将子项目下的路径注入为编译期宏，运行时从文件加载纹理和着色器
     target_compile_definitions(${TARGET_NAME} PRIVATE
-        SHADER_DIR="${CMAKE_CURRENT_SOURCE_DIR}/shaders/"
-        TEXTURE_DIR="${CMAKE_CURRENT_SOURCE_DIR}/textures/"
+        TEXTURE_DIR="${PROJECT_SOURCE_DIR}/resources/textures/"
+        SHADER_DIR="${PROJECT_SOURCE_DIR}/${TARGET_NAME}/"
     )
 endfunction()
 
-add_subdirectory(examples)
-add_subdirectory(1.draw_triangle)
+add_opengl_executable(examples examples/example.cpp)
+add_opengl_executable(1.draw_triangle 1.draw_triangle/1.draw_triangle.cpp)
+add_opengl_executable(2.texture_display 2.texture_display/2.texture_display.cpp)
