@@ -11,10 +11,10 @@ add_library(gl_renderer_utils STATIC
 
 target_include_directories(gl_renderer_utils PUBLIC
     "${CMAKE_CURRENT_SOURCE_DIR}/include"
-    "${CMAKE_SOURCE_DIR}/third_party/stb"
 )
 
 target_link_libraries(gl_renderer_utils PUBLIC
+    stb
     glad
     glfw
     glm::glm
