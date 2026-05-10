@@ -1,1 +1,0 @@
-add_opengl_executable(example example.cpp)
