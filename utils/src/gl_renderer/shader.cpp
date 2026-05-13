@@ -54,12 +54,12 @@ Shader &Shader::operator=(Shader &&other) noexcept
     return *this;
 }
 
-void Shader::bind() const
+void Shader::use() const
 {
     GLCall(glUseProgram(renderer_id_));
 }
 
-void Shader::unbind() const
+void Shader::unuse() const
 {
     GLCall(glUseProgram(0));
 }

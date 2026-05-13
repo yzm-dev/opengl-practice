@@ -23,8 +23,8 @@ public:
     Shader(Shader &&other) noexcept;
     Shader &operator=(Shader &&other) noexcept;
 
-    void bind() const;
-    void unbind() const;
+    void use() const;
+    void unuse() const;
 
     std::string readShaderSourceFromFile(const std::string &file_path);
     void setUniform1i(const std::string &name, int value);
