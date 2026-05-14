@@ -32,13 +32,14 @@ find_package(Freetype REQUIRED)
 
 add_subdirectory(third_party/stb)
 add_subdirectory(third_party/glad)
+add_subdirectory(third_party/imgui)
 add_subdirectory(utils)
 
 function(add_opengl_executable TARGET_NAME)
     add_executable(${TARGET_NAME} ${ARGN})
     target_link_libraries(${TARGET_NAME} PRIVATE
         gl_renderer_utils
-        stb
+        imgui
     )
 
     if(APPLE)
@@ -54,7 +55,7 @@ function(add_opengl_executable TARGET_NAME)
     )
 endfunction()
 
-add_opengl_executable(examples examples/example.cpp)
+add_opengl_executable(examples examples/imgui_example.cpp)
 add_opengl_executable(1.draw_triangle 1.draw_triangle/1.draw_triangle.cpp)
 add_opengl_executable(2.texture_display 2.texture_display/2.texture_display.cpp)
 add_opengl_executable(3.transformations 3.transformations/3.transformations.cpp)
