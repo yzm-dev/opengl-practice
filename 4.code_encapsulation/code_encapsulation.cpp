@@ -5,8 +5,7 @@ const static int WINDOW_WIDTH = 800;
 const static int WINDOW_HEIGHT = 600;
 const static std::string WINDOW_TITLE = "Code Encapsulation";
 
-struct Vertex
-{
+struct Vertex {
     float x, y, z; // position
     float h, v;    // texture coordinates
 };
@@ -54,10 +53,8 @@ Vertex cube_vertices[] = {
     {-0.5f, 0.5f, 0.5f, 0.0f, 0.0f},
     {-0.5f, 0.5f, -0.5f, 0.0f, 1.0f}};
 
-int main()
-{
-    if (!glfwInit())
-    {
+int main() {
+    if (!glfwInit()) {
         std::cerr << "Failed to initialize GLFW\n";
         return -1;
     }
@@ -71,8 +68,7 @@ int main()
 #endif
 
     GLFWwindow *window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE.c_str(), nullptr, nullptr);
-    if (!window)
-    {
+    if (!window) {
         std::cerr << "Failed to create GLFW window\n";
         glfwTerminate();
         return -1;
@@ -91,8 +87,7 @@ int main()
     glfwSetScrollCallback(window, scrollCallback);
     glfwSetMouseButtonCallback(window, mouseButtonCallback);
 
-    if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)))
-    {
+    if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress))) {
         std::cerr << "Failed to initialize GLAD\n";
         glfwTerminate();
         return -1;
@@ -122,8 +117,7 @@ int main()
         shader.setUniform1i("texture_1", 0);
         shader.setUniform1i("texture_2", 1);
 
-        while (!glfwWindowShouldClose(window))
-        {
+        while (!glfwWindowShouldClose(window)) {
             // per-frame time logic
             camera_controller.updateFrameTime();
 
@@ -147,7 +141,7 @@ int main()
             glm::mat4 projection = glm::mat4(1.0f);
             model = glm::rotate(model, static_cast<float>(glfwGetTime()), glm::vec3(0.5f, 1.0f, 0.0f));
             view = camera_controller.camera.getViewMatrix();
-            projection = glm::perspective(glm::radians(camera_controller.camera.fov), static_cast<float>(WINDOW_WIDTH) / WINDOW_HEIGHT, 0.1f, 100.0f);
+            projection = glm::perspective(glm::radians(camera_controller.camera.fov), getDynamicAspect(window), 0.1f, 100.0f);
 
             // pass transformation matrices to the shader
             shader.setUniformMat4fv("model", model);
