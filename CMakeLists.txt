@@ -59,3 +59,6 @@ add_opengl_executable(1.draw_triangle 1.draw_triangle/1.draw_triangle.cpp)
 add_opengl_executable(2.texture_display 2.texture_display/2.texture_display.cpp)
 add_opengl_executable(3.transformations 3.transformations/3.transformations.cpp)
 add_opengl_executable(4.code_encapsulation 4.code_encapsulation/code_encapsulation.cpp)
+add_opengl_executable(5.coordinate_systems 5.coordinate_systems/coordinate_systems.cpp)
+
+# add_opengl_executable(6.light_material 6.light_material/light_material.cpp)
