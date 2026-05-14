@@ -51,15 +51,19 @@ function(add_opengl_executable TARGET_NAME)
     # 将子项目下的路径注入为编译期宏，运行时从文件加载纹理和着色器
     target_compile_definitions(${TARGET_NAME} PRIVATE
         TEXTURE_DIR="${PROJECT_SOURCE_DIR}/resources/textures/"
+        FONT_DIR="${PROJECT_SOURCE_DIR}/resources/fonts/"
         SHADER_DIR="${PROJECT_SOURCE_DIR}/${TARGET_NAME}/"
     )
 endfunction()
 
-add_opengl_executable(examples examples/imgui_example.cpp)
+# examples
+add_opengl_executable(imgui_examples examples/imgui_demo.cpp)
+
+# projects
 add_opengl_executable(1.draw_triangle 1.draw_triangle/1.draw_triangle.cpp)
 add_opengl_executable(2.texture_display 2.texture_display/2.texture_display.cpp)
 add_opengl_executable(3.transformations 3.transformations/3.transformations.cpp)
 add_opengl_executable(4.code_encapsulation 4.code_encapsulation/code_encapsulation.cpp)
 add_opengl_executable(5.coordinate_systems 5.coordinate_systems/coordinate_systems.cpp)
-
-# add_opengl_executable(6.light_material 6.light_material/light_material.cpp)
+add_opengl_executable(6.light_material 6.light_material/light_material.cpp)
+add_opengl_executable(7.imgui_demo 7.imgui_demo/imgui_demo.cpp)
